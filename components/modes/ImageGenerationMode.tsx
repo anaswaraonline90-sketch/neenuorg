@@ -35,14 +35,13 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
         setIsLoading(false);
     };
     
-    const accentVar = isPro ? '--pro-accent' : '--base-accent';
     const ringColor = isPro ? 'border-purple-500/50' : 'border-blue-500/50';
     const bgColor = isPro ? 'bg-pro-sidebar/50' : 'bg-black/30';
 
     return (
         <div className="flex flex-col h-full w-full p-6 md:p-8 animate-subtle-fade-in-up">
             <div className="flex items-center mb-6">
-                <ImageIcon className={`w-8 h-8 mr-3 text-[rgb(var(${accentVar}))]`} />
+                <ImageIcon className={`w-8 h-8 mr-3 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                 <h2 className="mode-title">Vision Forge</h2>
             </div>
             
@@ -64,7 +63,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                             {SIZES.map(s => (
                                 <button key={s} onClick={() => setSize(s)}
                                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 interactive-glow ${
-                                        size === s ? `bg-[rgb(var(${accentVar}))] text-white` : 'bg-white/10 hover:bg-white/20'
+                                        size === s ? `${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} text-white` : 'bg-white/10 hover:bg-white/20'
                                     }`}
                                 >
                                     {s}
@@ -75,7 +74,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                      <button
                         onClick={handleGenerate}
                         disabled={isLoading}
-                        className={`w-full flex items-center justify-center py-3 px-6 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed bg-[rgb(var(${accentVar}))] interactive-glow`}
+                        className={`w-full flex items-center justify-center py-3 px-6 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} interactive-glow`}
                     >
                         {isLoading ? <Loader2 className="mr-2 animate-spin" /> : <Wand2 className="mr-2" />}
                         {isLoading ? 'Conjuring...' : 'Generate'}
@@ -86,7 +85,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                 <div className={`w-full h-full ${bgColor} rounded-xl flex items-center justify-center relative overflow-hidden border-2 border-dashed border-white/20`}>
                     {isLoading && (
                         <div className="flex flex-col items-center text-white/50">
-                            <Loader2 className={`w-16 h-16 text-[rgb(var(${accentVar}))] animate-spin`} />
+                            <Loader2 className={`w-16 h-16 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'} animate-spin`} />
                             <p className="mt-4">Creating your masterpiece...</p>
                         </div>
                     )}
@@ -94,7 +93,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                     {generatedImage && (
                         <>
                             <img src={generatedImage} alt="Generated art" className="object-contain w-full h-full animate-subtle-fade-in" />
-                            <a href={generatedImage} download="nihara-art.jpg" className={`absolute bottom-4 right-4 p-3 rounded-full bg-[rgb(var(${accentVar}))] text-white hover:scale-110 transition-transform duration-200 interactive-glow`}>
+                            <a href={generatedImage} download="nihara-art.jpg" className={`absolute bottom-4 right-4 p-3 rounded-full ${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} text-white hover:scale-110 transition-transform duration-200 interactive-glow`}>
                                 <Download />
                             </a>
                         </>

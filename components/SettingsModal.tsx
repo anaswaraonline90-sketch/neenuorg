@@ -26,10 +26,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
     if (!isOpen) return null;
 
-    const accentVar = isPro ? '--pro-accent' : '--base-accent';
-    const accentColor = isPro ? 'pro-accent' : 'base-accent';
-
-
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 animate-subtle-fade-in">
             <div className="glassmorphic rounded-2xl shadow-2xl p-8 w-full max-w-2xl relative">
@@ -41,11 +37,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 {/* Commitment Level */}
                 <div className="mb-8">
                     <h3 className="text-xl font-semibold mb-3 flex items-center">
-                        <Heart className={`mr-2 text-[rgb(var(${accentVar}))]`} /> Commitment Level
+                        <Heart className={`mr-2 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} /> Commitment Level
                     </h3>
                     <div className="w-full bg-white/10 rounded-full h-4">
                         <div
-                            className={`bg-[rgb(var(${accentVar}))] h-4 rounded-full transition-all duration-500`}
+                            className={`${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} h-4 rounded-full transition-all duration-500`}
                             style={{ width: `${commitmentLevel}%` }}
                         ></div>
                     </div>
@@ -62,7 +58,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                 onClick={() => onPersonalityChange(p)}
                                 className={`p-4 rounded-lg border-2 transition-all duration-200 ${
                                     currentPersonality.id === p.id
-                                        ? `border-[rgb(var(${accentVar}))] bg-white/10 scale-105`
+                                        ? `${isPro ? 'border-[rgb(var(--pro-accent))]' : 'border-[rgb(var(--base-accent))]'} bg-white/10 scale-105`
                                         : 'border-transparent bg-white/5 hover:border-white/50'
                                 }`}
                             >
@@ -81,7 +77,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                         {VOICE_TONES.map(voice => (
                             <button key={voice.id} onClick={() => onVoiceToneChange(voice.id)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                                    currentVoiceTone === voice.id ? `bg-[rgb(var(${accentVar}))] text-white` : 'bg-white/10 hover:bg-white/20'
+                                    currentVoiceTone === voice.id ? `${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} text-white` : 'bg-white/10 hover:bg-white/20'
                                 }`}
                             >
                                 {voice.name}

@@ -39,16 +39,23 @@ const App: React.FC = () => {
 
     useEffect(() => {
         // Load data from localStorage on startup
-        const savedUser = localStorage.getItem('nihara_userName');
-        if (savedUser) setUserName(savedUser);
-        const savedIsPro = localStorage.getItem('nihara_isPro') === 'true';
-        if (savedIsPro) setIsPro(savedIsPro);
-        const savedHistory = localStorage.getItem('nihara_chatHistory');
-        if (savedHistory) setChatHistory(JSON.parse(savedHistory));
-        const savedDiary = localStorage.getItem('nihara_diaryEntries');
-        if (savedDiary) setDiaryEntries(JSON.parse(savedDiary));
-        const savedCommitment = localStorage.getItem('nihara_commitmentLevel');
-        if (savedCommitment) setCommitmentLevel(parseInt(savedCommitment, 10));
+        try {
+            const savedUser = localStorage.getItem('nihara_userName');
+            if (savedUser) setUserName(savedUser);
+            const savedIsPro = localStorage.getItem('nihara_isPro') === 'true';
+            if (savedIsPro) setIsPro(savedIsPro);
+            const savedHistory = localStorage.getItem('nihara_chatHistory');
+            if (savedHistory) setChatHistory(JSON.parse(savedHistory));
+            const savedDiary = localStorage.getItem('nihara_diaryEntries');
+            if (savedDiary) setDiaryEntries(JSON.parse(savedDiary));
+            const savedCommitment = localStorage.getItem('nihara_commitmentLevel');
+            if (savedCommitment) setCommitmentLevel(parseInt(savedCommitment, 10));
+        } catch (error) {
+            console.error("Error parsing localStorage data. Data will be reset.", error);
+            // If parsing fails, clear the corrupted data to prevent future crashes.
+            localStorage.removeItem('nihara_chatHistory');
+            localStorage.removeItem('nihara_diaryEntries');
+        }
     }, []);
 
     useEffect(() => {

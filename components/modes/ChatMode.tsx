@@ -207,7 +207,7 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
     return (
         <div className="flex flex-col h-full w-full animate-subtle-fade-in-up">
             <div className={`flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 border-b border-white/10`}>
-                <MessageSquare className={`w-8 h-8 text-[rgb(var(--${isPro ? 'pro-accent' : 'base-accent'}))]`} />
+                <MessageSquare className={`w-8 h-8 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                 <div>
                     <h2 className="mode-title">Chat Verse</h2>
                     <p className="text-gray-400 -mt-2">A dynamic conversation with {personality.name}</p>

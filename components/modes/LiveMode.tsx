@@ -62,8 +62,6 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
     const nextStartTimeRef = useRef(0);
     const outputSourcesRef = useRef(new Set<AudioBufferSourceNode>());
 
-    const accentVar = isPro ? '--pro-accent' : '--base-accent';
-    
     useEffect(() => {
         transcriptionEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [transcription, currentTurn]);
@@ -305,7 +303,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
     }, []);
 
     const getCircleClasses = () => {
-        if (isAiSpeaking) return `bg-[rgba(var(${accentVar}),0.3)] text-[rgb(var(${accentVar}))] animate-speaking-wave`;
+        if (isAiSpeaking) return `${isPro ? 'bg-[rgba(var(--pro-accent),0.3)] text-[rgb(var(--pro-accent))]' : 'bg-[rgba(var(--base-accent),0.3)] text-[rgb(var(--base-accent))]'} animate-speaking-wave`;
         if (isActive) return `bg-green-500/30 text-green-300 ${isPro ? 'animate-pro-glow-ring' : 'animate-pulse-glow'}`;
         if (isConnecting) return 'bg-gray-500/20 text-white';
         return 'bg-gray-500/20 text-white cursor-pointer hover:bg-gray-500/30';
@@ -319,7 +317,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
                 </div>
             )}
             <div className="flex items-center">
-                <Mic className={`w-8 h-8 mr-3 text-[rgb(var(${accentVar}))]`} />
+                <Mic className={`w-8 h-8 mr-3 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                 <h2 className="mode-title">Aura Sync</h2>
             </div>
             
