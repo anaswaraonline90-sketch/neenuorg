@@ -156,8 +156,8 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
     const proInputClass = "border-purple-500/50";
     const baseInputClass = "border-blue-500/50";
 
-    const proSendButton = "bg-pro-accent hover:bg-pro-accent/80";
-    const baseSendButton = "bg-base-accent hover:bg-base-accent/80";
+    const proSendButton = "bg-[rgb(var(--pro-accent))] hover:bg-[rgba(var(--pro-accent),0.8)]";
+    const baseSendButton = "bg-[rgb(var(--base-accent))] hover:bg-[rgba(var(--base-accent),0.8)]";
     
     const charCountColor = input.length > MAX_CHARS * 0.95 ? 'text-red-400' : input.length > MAX_CHARS * 0.8 ? 'text-yellow-400' : 'text-gray-500';
 
@@ -170,7 +170,7 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
     const renderMessage = (msg: ChatMessage, index: number, messageId: string) => {
         const isUser = msg.sender === 'user';
         const avatarInitial = isUser ? userName.charAt(0).toUpperCase() : personality.name.charAt(0).toUpperCase();
-        const avatarColor = isUser ? 'bg-green-500' : (isPro ? 'bg-pro-accent' : personality.avatarColor);
+        const avatarColor = isUser ? 'bg-green-500' : (isPro ? 'bg-[rgb(var(--pro-accent))]' : personality.avatarColor);
         const animationClass = isUser ? 'animate-message-in-right' : 'animate-message-in-left';
         
         if (msg.isTyping) {
@@ -207,7 +207,7 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
     return (
         <div className="flex flex-col h-full w-full animate-subtle-fade-in-up">
             <div className={`flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 border-b border-white/10`}>
-                <MessageSquare className={`w-8 h-8 text-${isPro ? 'pro-accent' : 'base-accent'}`} />
+                <MessageSquare className={`w-8 h-8 text-[rgb(var(--${isPro ? 'pro-accent' : 'base-accent'}))]`} />
                 <div>
                     <h2 className="mode-title">Chat Verse</h2>
                     <p className="text-gray-400 -mt-2">A dynamic conversation with {personality.name}</p>

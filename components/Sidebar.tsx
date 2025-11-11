@@ -12,17 +12,18 @@ interface SidebarProps {
 
 const NavItem: React.FC<{ icon: React.ReactNode; label: AppMode; currentMode: AppMode; setMode: (mode: AppMode) => void; isPro: boolean }> = ({ icon, label, currentMode, setMode, isPro }) => {
     const isActive = currentMode === label;
-    const proClass = 'text-pro-text hover:bg-pro-accent/20';
-    const baseClass = 'text-base-text hover:bg-base-accent/20';
-    const activeProClass = 'bg-pro-accent/30 text-white shadow-lg';
-    const activeBaseClass = 'bg-base-accent/30 text-white shadow-lg';
+    
+    const proClass = 'text-gray-300 hover:bg-[rgba(var(--pro-accent),0.2)]';
+    const baseClass = 'text-gray-300 hover:bg-[rgba(var(--base-accent),0.2)]';
+    const activeProClass = 'bg-[rgba(var(--pro-accent),0.3)] text-white shadow-lg';
+    const activeBaseClass = 'bg-[rgba(var(--base-accent),0.3)] text-white shadow-lg';
     
     const colors = isPro ? { base: proClass, active: activeProClass } : { base: baseClass, active: activeBaseClass };
 
     return (
         <button
             onClick={() => setMode(label)}
-            className={`flex items-center w-full px-4 py-3 my-1 rounded-lg transition-all duration-200 ${colors.base} ${isActive ? colors.active : ''} interactive-glow`}
+            className={`flex items-center w-full px-4 py-3 my-1 rounded-lg transition-all duration-200 ${isActive ? colors.active : colors.base} interactive-glow`}
         >
             {icon}
             <span className="ml-4 font-semibold">{label}</span>
@@ -38,11 +39,11 @@ const Sidebar: React.FC<SidebarProps> = ({ currentMode, setMode, isPro, userName
         <>
             <aside className="flex-shrink-0 w-64 p-4 flex flex-col glassmorphic rounded-2xl">
                 <div className="flex items-center mb-8">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white ${isPro ? 'bg-pro-accent' : 'bg-base-accent'}`}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white ${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'}`}>
                         {profileInitial}
                     </div>
                     <div className="ml-3">
-                        <h1 className={`text-xl font-bold ${isPro ? 'text-pro-text' : 'text-white'}`}>{personalityName}</h1>
+                        <h1 className="text-xl font-bold text-white">{personalityName}</h1>
                         {userName && <p className="text-sm text-gray-400">for {userName}</p>}
                     </div>
                 </div>

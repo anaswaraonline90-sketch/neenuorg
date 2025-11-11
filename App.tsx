@@ -13,9 +13,16 @@ import UpgradeModal from './components/UpgradeModal';
 import ApiKeyChecker from './components/ApiKeyChecker';
 import { Settings, Zap } from 'lucide-react';
 
+// This placeholder is checked to prevent users from accidentally deploying with it.
+const PLACEHOLDER_API_KEY = "AIzaSyAV0dcRC6m7sYMm69OuE2cuM9vQV2ZY2uc";
+
 const App: React.FC = () => {
+    const apiKey = process.env.API_KEY;
+    // The key is invalid if it's missing, an empty string, or the placeholder.
+    const isApiKeyMissing = !apiKey || apiKey.trim() === '' || apiKey === PLACEHOLDER_API_KEY;
+
     // Securely check for API key from environment variables.
-    if (!process.env.API_KEY) {
+    if (isApiKeyMissing) {
         return <ApiKeyChecker />;
     }
 

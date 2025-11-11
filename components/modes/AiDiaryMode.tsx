@@ -77,14 +77,12 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
         setNewEntry(entry.content);
     }
 
-    const proAccent = 'pro-accent';
-    const baseAccent = 'base-accent';
-    const accentColor = isPro ? proAccent : baseAccent;
+    const accentVar = isPro ? '--pro-accent' : '--base-accent';
     const ringColor = isPro ? 'border-purple-500/50' : 'border-blue-500/50';
 
     const lockedScreen = (
         <div className="flex flex-col items-center justify-center h-full w-full animate-subtle-fade-in-up">
-            <Lock className={`w-24 h-24 mb-6 text-${accentColor}`} />
+            <Lock className={`w-24 h-24 mb-6 text-[rgb(var(${accentVar}))]`} />
             <h2 className="text-3xl font-bold mb-2">AI Diary Locked</h2>
             <p className="text-gray-400 mb-6">{password ? 'Enter your password to unlock.' : 'Set a password for your private diary.'}</p>
             <div className="w-full max-w-sm flex items-center space-x-2">
@@ -96,7 +94,7 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
                     placeholder="Password..."
                     className={`flex-grow bg-white/5 border-2 border-transparent rounded-full py-3 px-6 text-white placeholder-gray-400 focus:outline-none transition-all duration-300 interactive-glow ${ringColor}`}
                 />
-                <button onClick={handleUnlock} className={`p-3 rounded-full text-white bg-${accentColor} hover:bg-${accentColor}/80 interactive-glow`}>
+                <button onClick={handleUnlock} className={`p-3 rounded-full text-white bg-[rgb(var(${accentVar}))] hover:bg-[rgba(var(${accentVar}),0.8)] interactive-glow`}>
                     <Unlock />
                 </button>
             </div>
@@ -112,10 +110,10 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
         <div className="flex flex-col h-full w-full p-6 md:p-8 animate-subtle-fade-in-up">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                    <BookLock className={`w-8 h-8 mr-3 text-${accentColor}`} />
+                    <BookLock className={`w-8 h-8 mr-3 text-[rgb(var(${accentVar}))]`} />
                     <h2 className="mode-title">Mind Vault</h2>
                 </div>
-                <button onClick={handleLock} className={`flex items-center px-4 py-2 rounded-full text-white bg-${accentColor} hover:bg-${accentColor}/80 interactive-glow`}>
+                <button onClick={handleLock} className={`flex items-center px-4 py-2 rounded-full text-white bg-[rgb(var(${accentVar}))] hover:bg-[rgba(var(${accentVar}),0.8)] interactive-glow`}>
                     <Lock className="mr-2" size={16}/> Lock
                 </button>
             </div>
@@ -129,7 +127,7 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
                         placeholder="Pour your heart out... your secrets are safe here."
                         className={`flex-1 w-full bg-white/5 border-2 border-white/20 rounded-lg p-4 text-white placeholder-gray-400 focus:outline-none transition-all duration-300 interactive-glow ${ringColor}`}
                     />
-                    <button onClick={handleSaveEntry} className={`mt-4 w-full flex items-center justify-center py-2 px-4 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 bg-${accentColor} interactive-glow`}>
+                    <button onClick={handleSaveEntry} className={`mt-4 w-full flex items-center justify-center py-2 px-4 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 bg-[rgb(var(${accentVar}))] interactive-glow`}>
                         <PlusCircle className="mr-2"/> {editingEntry ? 'Update Entry' : 'Save Entry'}
                     </button>
                 </div>

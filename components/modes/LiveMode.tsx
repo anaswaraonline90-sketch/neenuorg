@@ -62,9 +62,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
     const nextStartTimeRef = useRef(0);
     const outputSourcesRef = useRef(new Set<AudioBufferSourceNode>());
 
-    const proAccent = 'pro-accent';
-    const baseAccent = 'base-accent';
-    const accentColor = isPro ? proAccent : baseAccent;
+    const accentVar = isPro ? '--pro-accent' : '--base-accent';
     
     useEffect(() => {
         transcriptionEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -307,7 +305,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
     }, []);
 
     const getCircleClasses = () => {
-        if (isAiSpeaking) return `bg-${accentColor}/30 text-${accentColor} animate-speaking-wave`;
+        if (isAiSpeaking) return `bg-[rgba(var(${accentVar}),0.3)] text-[rgb(var(${accentVar}))] animate-speaking-wave`;
         if (isActive) return `bg-green-500/30 text-green-300 ${isPro ? 'animate-pro-glow-ring' : 'animate-pulse-glow'}`;
         if (isConnecting) return 'bg-gray-500/20 text-white';
         return 'bg-gray-500/20 text-white cursor-pointer hover:bg-gray-500/30';
@@ -321,7 +319,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
                 </div>
             )}
             <div className="flex items-center">
-                <Mic className={`w-8 h-8 mr-3 text-${accentColor}`} />
+                <Mic className={`w-8 h-8 mr-3 text-[rgb(var(${accentVar}))]`} />
                 <h2 className="mode-title">Aura Sync</h2>
             </div>
             
@@ -368,7 +366,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
                                 <div className="flex justify-end animate-subtle-fade-in"><p className="max-w-[75%] bg-green-600/60 p-2 px-3 rounded-xl rounded-br-none text-white">{turn.user}</p></div>
                             )}
                             {turn.ai && (
-                                <div className="flex justify-start animate-subtle-fade-in mt-2"><p className={`max-w-[75%] p-2 px-3 rounded-xl rounded-bl-none text-white ${isPro ? 'bg-pro-accent/60' : 'bg-base-accent/60'}`}>{turn.ai}</p></div>
+                                <div className="flex justify-start animate-subtle-fade-in mt-2"><p className={`max-w-[75%] p-2 px-3 rounded-xl rounded-bl-none text-white ${isPro ? 'bg-[rgba(var(--pro-accent),0.6)]' : 'bg-[rgba(var(--base-accent),0.6)]'}`}>{turn.ai}</p></div>
                             )}
                         </div>
                     )
