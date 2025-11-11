@@ -23,7 +23,7 @@ function encode(bytes: Uint8Array) {
   return btoa(binary);
 }
 
-const blobToBase64 = (blob: Blob): Promise<string> => {
+const blobToBase64 = (blob: globalThis.Blob): Promise<string> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = () => {

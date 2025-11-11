@@ -44,10 +44,19 @@ const App: React.FC = () => {
             if (savedUser) setUserName(savedUser);
             const savedIsPro = localStorage.getItem('nihara_isPro') === 'true';
             if (savedIsPro) setIsPro(savedIsPro);
+            
             const savedHistory = localStorage.getItem('nihara_chatHistory');
-            if (savedHistory) setChatHistory(JSON.parse(savedHistory));
+            if (savedHistory) {
+                const parsed = JSON.parse(savedHistory);
+                if (Array.isArray(parsed)) setChatHistory(parsed);
+            }
+
             const savedDiary = localStorage.getItem('nihara_diaryEntries');
-            if (savedDiary) setDiaryEntries(JSON.parse(savedDiary));
+            if (savedDiary) {
+                const parsed = JSON.parse(savedDiary);
+                if (Array.isArray(parsed)) setDiaryEntries(parsed);
+            }
+
             const savedCommitment = localStorage.getItem('nihara_commitmentLevel');
             if (savedCommitment) setCommitmentLevel(parseInt(savedCommitment, 10));
         } catch (error) {
