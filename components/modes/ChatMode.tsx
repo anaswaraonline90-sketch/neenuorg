@@ -15,10 +15,10 @@ interface ChatModeProps {
 const MAX_CHARS = 2000;
 
 const TypingIndicator: React.FC<{ isPro: boolean }> = ({ isPro }) => (
-    <div className={`flex items-center space-x-2 h-10 px-4 rounded-2xl ${isPro ? 'bg-purple-900/50' : 'bg-slate-700'}`}>
-        <div className="w-2 h-2 bg-current rounded-full animate-typing-dots"></div>
-        <div className="w-2 h-2 bg-current rounded-full animate-typing-dots [animation-delay:0.25s]"></div>
-        <div className="w-2 h-2 bg-current rounded-full animate-typing-dots [animation-delay:0.5s]"></div>
+    <div className={`flex items-center space-x-2 h-10 px-4 rounded-2xl ${isPro ? 'bg-purple-900/50 animate-typing-glow-pro' : 'bg-slate-700 animate-typing-glow-base'}`}>
+        <div className="w-2 h-2 bg-current rounded-full animate-typing-wave"></div>
+        <div className="w-2 h-2 bg-current rounded-full animate-typing-wave [animation-delay:0.2s]"></div>
+        <div className="w-2 h-2 bg-current rounded-full animate-typing-wave [animation-delay:0.4s]"></div>
     </div>
 );
 
@@ -167,10 +167,20 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
         return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
     };
 
+    const getAIAvatarColor = () => {
+        if (isPro) return 'bg-[rgb(var(--pro-accent))]';
+        switch (personality.avatarColor) {
+            case 'blue': return 'bg-blue-500';
+            case 'red': return 'bg-red-500';
+            case 'purple': return 'bg-purple-500';
+            default: return 'bg-gray-500';
+        }
+    };
+
     const renderMessage = (msg: ChatMessage, index: number, messageId: string) => {
         const isUser = msg.sender === 'user';
         const avatarInitial = isUser ? userName.charAt(0).toUpperCase() : personality.name.charAt(0).toUpperCase();
-        const avatarColor = isUser ? 'bg-green-500' : (isPro ? 'bg-[rgb(var(--pro-accent))]' : personality.avatarColor);
+        const avatarColor = isUser ? 'bg-green-500' : getAIAvatarColor();
         const animationClass = isUser ? 'animate-message-in-right' : 'animate-message-in-left';
         
         if (msg.isTyping) {
@@ -206,15 +216,15 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
     
     return (
         <div className="flex flex-col h-full w-full animate-subtle-fade-in-up">
-            <div className={`flex items-center gap-3 px-6 pt-6 pb-4 shrink-0 border-b border-white/10`}>
+            <div className={`flex items-center gap-3 p-4 md:p-6 shrink-0 border-b border-white/10`}>
                 <MessageSquare className={`w-8 h-8 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                 <div>
                     <h2 className="mode-title">Chat Verse</h2>
-                    <p className="text-gray-400 -mt-2">A dynamic conversation with {personality.name}</p>
+                    <p className="text-gray-400 -mt-2 hidden md:block">A dynamic conversation with {personality.name}</p>
                 </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 flex flex-col gap-y-1 pt-6">
+            <div className="flex-1 overflow-y-auto px-4 md:px-6 flex flex-col gap-y-1 pt-6">
                 {chatHistory.map((msg, index) => {
                     const prevMsg = chatHistory[index - 1];
                     const showDateDivider = !prevMsg || !isSameDay(new Date(prevMsg.timestamp), new Date(msg.timestamp));
@@ -234,7 +244,7 @@ const ChatMode: React.FC<ChatModeProps> = ({ userName, personality, chatHistory,
                 <div ref={messagesEndRef} />
             </div>
 
-            <div className="shrink-0 mt-auto pt-4 border-t border-white/10 px-6 pb-4">
+            <div className="shrink-0 mt-auto pt-4 border-t border-white/10 px-4 md:px-6 pb-4">
                 {imagePreview && (
                     <div className="relative w-24 h-24 mb-2 rounded-lg overflow-hidden">
                         <img src={imagePreview} alt="Preview" className="w-full h-full object-cover"/>

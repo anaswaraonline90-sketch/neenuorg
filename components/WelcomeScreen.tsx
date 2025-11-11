@@ -17,9 +17,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ onNameSet, personality })
         }
     };
 
+    const avatarColorClass = {
+        blue: 'bg-blue-500',
+        red: 'bg-red-500',
+        purple: 'bg-purple-500',
+    }[personality.avatarColor] || 'bg-gray-500';
+
     return (
         <div className="flex flex-col items-center justify-center text-center p-8 glassmorphic rounded-2xl max-w-lg">
-            <div className={`w-32 h-32 rounded-full flex items-center justify-center text-6xl font-bold text-white mb-6 ${personality.avatarColor} shadow-2xl`}>
+            <div className={`w-32 h-32 rounded-full flex items-center justify-center text-6xl font-bold text-white mb-6 ${avatarColorClass} shadow-2xl`}>
                 {personality.name.charAt(0)}
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">

@@ -80,10 +80,10 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
     const ringColor = isPro ? 'border-purple-500/50' : 'border-blue-500/50';
 
     const lockedScreen = (
-        <div className="flex flex-col items-center justify-center h-full w-full animate-subtle-fade-in-up">
+        <div className="flex flex-col items-center justify-center h-full w-full p-4 animate-subtle-fade-in-up">
             <Lock className={`w-24 h-24 mb-6 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
-            <h2 className="text-3xl font-bold mb-2">AI Diary Locked</h2>
-            <p className="text-gray-400 mb-6">{password ? 'Enter your password to unlock.' : 'Set a password for your private diary.'}</p>
+            <h2 className="text-3xl font-bold mb-2 text-center">AI Diary Locked</h2>
+            <p className="text-gray-400 mb-6 text-center">{password ? 'Enter your password to unlock.' : 'Set a password for your private diary.'}</p>
             <div className="w-full max-w-sm flex items-center space-x-2">
                 <input
                     type="password"
@@ -106,8 +106,8 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
     }
 
     return (
-        <div className="flex flex-col h-full w-full p-6 md:p-8 animate-subtle-fade-in-up">
-            <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col h-full w-full p-4 md:p-6 animate-subtle-fade-in-up">
+            <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
                 <div className="flex items-center">
                     <BookLock className={`w-8 h-8 mr-3 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                     <h2 className="mode-title">Mind Vault</h2>
@@ -117,8 +117,8 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
                 </button>
             </div>
             
-            <div className="flex flex-col md:flex-row gap-8 h-full overflow-hidden">
-                <div className="md:w-1/2 flex flex-col">
+            <div className="flex flex-col md:flex-row gap-8 flex-1 overflow-hidden">
+                <div className="md:w-1/2 flex flex-col h-1/2 md:h-full">
                     <h3 className="text-xl font-semibold mb-2">{editingEntry ? 'Edit Entry' : 'New Entry'}</h3>
                     <textarea
                         value={newEntry}
@@ -131,7 +131,7 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
                     </button>
                 </div>
 
-                <div className="md:w-1/2 flex flex-col">
+                <div className="md:w-1/2 flex flex-col flex-1 overflow-hidden">
                     <h3 className="text-xl font-semibold mb-2">Past Entries</h3>
                     <div className="flex-1 overflow-y-auto pr-2 space-y-4">
                         {entries.length === 0 ? (
@@ -146,7 +146,7 @@ const AiDiaryMode: React.FC<AiDiaryModeProps> = ({ entries, setEntries, onIntera
                                             <button onClick={() => handleDeleteEntry(entry.id)} className="text-gray-400 hover:text-red-400 interactive-glow-text"><Trash2 size={16}/></button>
                                         </div>
                                     </div>
-                                    <p className="text-gray-200 truncate">{entry.content}</p>
+                                    <p className="text-gray-200 whitespace-pre-wrap break-words truncate">{entry.content}</p>
                                 </div>
                             ))
                         )}

@@ -310,7 +310,7 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
     };
 
     return (
-        <div className="flex flex-col h-full w-full p-6 md:p-8 animate-subtle-fade-in-up relative">
+        <div className="flex flex-col h-full w-full p-4 md:p-6 animate-subtle-fade-in-up relative">
             {isCameraOn && (
                 <div className="floating-video-feed animate-subtle-fade-in">
                     <video ref={videoRef} autoPlay muted />
@@ -323,18 +323,18 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
             
             <div className="flex-1 flex flex-col items-center justify-center text-center">
                 <div
-                    className={`w-48 h-48 md:w-60 md:h-60 rounded-full flex items-center justify-center relative transition-all duration-300 ease-in-out ${getCircleClasses()}`}
+                    className={`w-40 h-40 md:w-60 md:h-60 rounded-full flex items-center justify-center relative transition-all duration-300 ease-in-out ${getCircleClasses()}`}
                     onClick={isActive ? undefined : startConversation}
                     role="button"
                     aria-label="Start or monitor conversation"
                     tabIndex={isActive ? -1 : 0}
                 >
-                    {isConnecting && <Loader2 className="w-20 h-20 animate-spin" />}
-                    {!isConnecting && (isActive ? (isAiSpeaking ? <AudioWaveform className="w-24 h-24" /> : <Mic className="w-24 h-24" />) : <Mic className="w-24 h-24" />)}
+                    {isConnecting && <Loader2 className="w-16 h-16 md:w-20 md:h-20 animate-spin" />}
+                    {!isConnecting && (isActive ? (isAiSpeaking ? <AudioWaveform className="w-20 h-20 md:w-24 md:h-24" /> : <Mic className="w-20 h-20 md:w-24 md:h-24" />) : <Mic className="w-20 h-20 md:w-24 md:h-24" />)}
                 </div>
                 <p className="mt-6 text-xl text-gray-300 h-7">{status}</p>
                 {isActive && (
-                    <div className="flex items-center gap-4 mt-8">
+                    <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
                         <button
                             onClick={toggleCamera}
                             className={`flex items-center justify-center px-6 py-3 rounded-full font-bold transition-transform duration-200 hover:scale-105 ${isCameraOn ? `bg-blue-600 hover:bg-blue-700` : `bg-gray-600 hover:bg-gray-700`} text-white interactive-glow`}
@@ -353,9 +353,9 @@ const LiveMode: React.FC<LiveModeProps> = ({ userName, voiceTone, onInteraction,
                 )}
             </div>
             <canvas ref={canvasRef} className="hidden"></canvas>
-            <div className="w-full max-w-4xl mx-auto h-48 bg-black/20 rounded-lg mt-auto p-4 overflow-y-auto space-y-4 text-sm">
+            <div className="w-full max-w-4xl mx-auto h-32 md:h-48 bg-black/20 rounded-lg mt-auto p-4 overflow-y-auto space-y-4 text-sm">
                  {transcription.length === 0 && currentTurn.user === '' && currentTurn.ai === '' && (
-                    <p className="text-gray-400 text-center pt-16">Conversation will appear here...</p>
+                    <p className="text-gray-400 text-center pt-10 md:pt-16">Conversation will appear here...</p>
                 )}
                 {[...transcription, currentTurn].map((turn, index) => (
                     (turn.user || turn.ai) && (

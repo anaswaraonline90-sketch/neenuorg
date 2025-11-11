@@ -11,7 +11,7 @@ import LiveMode from './components/modes/LiveMode';
 import SettingsModal from './components/SettingsModal';
 import UpgradeModal from './components/UpgradeModal';
 import ApiKeyChecker from './components/ApiKeyChecker';
-import { Settings, Zap } from 'lucide-react';
+import { Settings, Zap, Menu } from 'lucide-react';
 
 // This placeholder is checked to prevent users from accidentally deploying with it.
 const PLACEHOLDER_API_KEY = "AIzaSyAV0dcRC6m7sYMm69OuE2cuM9vQV2ZY2uc";
@@ -36,6 +36,7 @@ const App: React.FC = () => {
     const [voiceTone, setVoiceTone] = useState<string>('Zephyr');
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     useEffect(() => {
         // Load data from localStorage on startup
@@ -114,34 +115,52 @@ const App: React.FC = () => {
 
     if (!userName) {
         return (
-             <div className="h-screen w-screen flex items-center justify-center animate-fade-in-blur">
+             <div className="h-screen w-screen flex items-center justify-center animate-fade-in-blur p-4">
                 <WelcomeScreen onNameSet={setUserName} personality={personality} />
             </div>
         );
     }
 
     return (
-        <div className={`flex h-screen w-screen p-2 md:p-4 text-white animate-subtle-fade-in ${isPro ? 'is-pro' : ''}`}>
+        <div className={`h-screen w-screen text-white animate-subtle-fade-in ${isPro ? 'is-pro' : ''}`}>
              {!isPro && (
                 <button onClick={() => setIsUpgradeModalOpen(true)} className="upgrade-button-top animate-subtle-fade-in">
                     <Zap size={14} className="inline-block mr-1" />
                     Upgrade to Pro
                 </button>
             )}
-            <Sidebar currentMode={mode} setMode={setMode} isPro={isPro} userName={userName} personalityName={personality.name} />
-            <main className="flex-1 ml-2 md:ml-4 relative">
-                <div className="w-full h-full glassmorphic rounded-2xl overflow-hidden p-1">
-                     <div className={`w-full h-full bg-slate-900/50 rounded-xl ${mode === AppMode.CHAT ? 'chat-view-bg-animated' : 'chat-view-bg'} relative`}>
-                        {renderMode()}
+             <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="md:hidden fixed top-4 left-4 z-50 p-2 bg-black/20 rounded-full interactive-glow"
+                aria-label="Open menu"
+            >
+                <Menu className="w-6 h-6" />
+            </button>
+
+            <div className="flex h-full w-full p-2 md:p-4">
+                <Sidebar 
+                    currentMode={mode} 
+                    setMode={setMode} 
+                    isPro={isPro} 
+                    userName={userName} 
+                    personalityName={personality.name}
+                    isOpen={isSidebarOpen}
+                    setIsOpen={setIsSidebarOpen}
+                />
+                <main className="flex-1 md:ml-4 relative h-full">
+                    <div className="w-full h-full glassmorphic rounded-2xl overflow-hidden p-1">
+                         <div className={`w-full h-full bg-slate-900/50 rounded-xl ${mode === AppMode.CHAT ? 'chat-view-bg-animated' : 'chat-view-bg'} relative`}>
+                            {renderMode()}
+                        </div>
                     </div>
-                </div>
-                 <button onClick={() => setIsSettingsOpen(true)} className="absolute top-4 right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors interactive-glow">
-                    <Settings className="w-6 h-6" />
-                </button>
-                <div className="absolute bottom-2 right-4 text-xs text-white/30 pointer-events-none">
-                    Nihara created by Abhinav Gireesh
-                </div>
-            </main>
+                     <button onClick={() => setIsSettingsOpen(true)} className="absolute top-4 right-4 p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors interactive-glow">
+                        <Settings className="w-6 h-6" />
+                    </button>
+                    <div className="absolute bottom-2 right-4 text-xs text-white/30 pointer-events-none hidden md:block">
+                        Nihara created by Abhinav Gireesh
+                    </div>
+                </main>
+            </div>
             <SettingsModal 
                 isOpen={isSettingsOpen}
                 onClose={() => setIsSettingsOpen(false)}

@@ -39,14 +39,14 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
     const bgColor = isPro ? 'bg-pro-sidebar/50' : 'bg-black/30';
 
     return (
-        <div className="flex flex-col h-full w-full p-6 md:p-8 animate-subtle-fade-in-up">
+        <div className="flex flex-col h-full w-full p-4 md:p-6 animate-subtle-fade-in-up">
             <div className="flex items-center mb-6">
                 <ImageIcon className={`w-8 h-8 mr-3 ${isPro ? 'text-[rgb(var(--pro-accent))]' : 'text-[rgb(var(--base-accent))]'}`} />
                 <h2 className="mode-title">Vision Forge</h2>
             </div>
             
-            <div className="flex-1 grid md:grid-cols-2 gap-8 overflow-hidden">
-                <div className="flex flex-col space-y-6">
+            <div className="flex-1 grid md:grid-cols-2 gap-6 overflow-hidden">
+                <div className="flex flex-col space-y-4 md:space-y-6">
                     <div>
                         <label className="block text-lg font-semibold mb-2" htmlFor="prompt">Your Vision</label>
                         <textarea
@@ -59,7 +59,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                     </div>
                     <div>
                         <label className="block text-lg font-semibold mb-2">Aspect Ratio</label>
-                        <div className="flex flex-wrap gap-3">
+                        <div className="flex flex-wrap gap-2 md:gap-3">
                             {SIZES.map(s => (
                                 <button key={s} onClick={() => setSize(s)}
                                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 interactive-glow ${
@@ -74,7 +74,7 @@ const ImageGenerationMode: React.FC<ImageGenerationModeProps> = ({ onInteraction
                      <button
                         onClick={handleGenerate}
                         disabled={isLoading}
-                        className={`w-full flex items-center justify-center py-3 px-6 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} interactive-glow`}
+                        className={`w-full flex items-center justify-center py-3 px-6 rounded-lg text-lg font-bold transition-transform duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed ${isPro ? 'bg-[rgb(var(--pro-accent))]' : 'bg-[rgb(var(--base-accent))]'} interactive-glow mt-auto`}
                     >
                         {isLoading ? <Loader2 className="mr-2 animate-spin" /> : <Wand2 className="mr-2" />}
                         {isLoading ? 'Conjuring...' : 'Generate'}

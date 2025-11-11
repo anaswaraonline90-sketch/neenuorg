@@ -26,6 +26,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 }) => {
     if (!isOpen) return null;
 
+    const getAvatarColorClass = (color: string) => ({
+        blue: 'bg-blue-500',
+        red: 'bg-red-500',
+        purple: 'bg-purple-500',
+    }[color] || 'bg-gray-500');
+
     return (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 animate-subtle-fade-in">
             <div className="glassmorphic rounded-2xl shadow-2xl p-8 w-full max-w-2xl relative">
@@ -62,7 +68,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                                         : 'border-transparent bg-white/5 hover:border-white/50'
                                 }`}
                             >
-                                <div className={`w-10 h-10 rounded-full ${p.avatarColor} mx-auto mb-2 flex items-center justify-center text-xl font-bold`}>{p.name.charAt(0)}</div>
+                                <div className={`w-10 h-10 rounded-full ${getAvatarColorClass(p.avatarColor)} mx-auto mb-2 flex items-center justify-center text-xl font-bold`}>{p.name.charAt(0)}</div>
                                 <h4 className="font-bold text-lg">{p.name}</h4>
                                 <p className="text-sm text-gray-400">{p.description}</p>
                             </button>
